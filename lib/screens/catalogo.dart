@@ -6,7 +6,7 @@ class CatalogoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey[900],
+        backgroundColor: Colors.grey[800],
         toolbarHeight: 80,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -16,7 +16,7 @@ class CatalogoPage extends StatelessWidget {
               style: TextStyle(
                 fontFamily: 'LoraBoldItalic',
                 fontSize: 30,
-                color: Colors.orange,
+                color: Color(0xFFFFBF9B),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -27,6 +27,7 @@ class CatalogoPage extends StatelessWidget {
               icon: Icon(
                 Icons.account_circle,
                 size: 32,
+                color: Color(0xFFB46060)
               ),
             ),
           ],
@@ -42,9 +43,10 @@ class CatalogoPage extends StatelessWidget {
               Text(
                 'Da leggere >',
                 style: TextStyle(
-                  fontFamily: 'LoraBoldItalic',
-                  fontSize: 20,
-                  color: Colors.red,
+                    fontFamily: 'LoraBoldItalic',
+                    fontSize: 17,
+                    color: Color(0xFFB46060),
+                    fontWeight: FontWeight.bold
                 ),
               ),
               SizedBox(height: 12),
@@ -65,9 +67,10 @@ class CatalogoPage extends StatelessWidget {
               Text(
                 'In corso >',
                 style: TextStyle(
-                  fontFamily: 'LoraBoldItalic',
-                  fontSize: 20,
-                  color: Colors.red,
+                    fontFamily: 'LoraBoldItalic',
+                    fontSize: 17,
+                    color: Color(0xFFB46060),
+                    fontWeight: FontWeight.bold
                 ),
               ),
               SizedBox(height: 12),
@@ -88,9 +91,10 @@ class CatalogoPage extends StatelessWidget {
               Text(
                 'Letti >',
                 style: TextStyle(
-                  fontFamily: 'LoraBoldItalic',
-                  fontSize: 20,
-                  color: Colors.red,
+                    fontFamily: 'LoraBoldItalic',
+                    fontSize: 17,
+                    color: Color(0xFFB46060),
+                    fontWeight: FontWeight.bold
                 ),
               ),
               SizedBox(height: 12),

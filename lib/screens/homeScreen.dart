@@ -32,9 +32,9 @@ class _CatalogoHomeState extends State<CatalogoHome> {
         children: _widgetOptions,
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.grey[900],
-        selectedItemColor: Colors.orange,
-        unselectedItemColor: Colors.white,
+        backgroundColor: Colors.grey[800],
+        selectedItemColor: Color(0xFFB46060),
+        unselectedItemColor: Color(0xFFFFBF9B),
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         items: const <BottomNavigationBarItem>[
