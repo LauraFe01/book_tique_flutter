@@ -16,7 +16,7 @@ class LibriGenere extends StatelessWidget {
     child: Container(
       height: 150,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Color(0xFFFFF4E0),
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
@@ -52,7 +52,7 @@ class LibriGenere extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: 'Lora-BoldItalic',
                     fontSize: 16,
-                    color: Colors.grey,
+                    color: Colors.black,
                   ),
                 ),
                 SizedBox(height: 8),
@@ -61,7 +61,7 @@ class LibriGenere extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: 'sans-serif',
                     fontSize: 14,
-                    color: Colors.grey,
+                    color: Colors.black,
                   ),
                 ),
               ],

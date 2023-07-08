@@ -1,5 +1,8 @@
-import 'package:flutter/material.dart';
+
 import 'package:book_tique/screens/bookImage.dart';
+import 'package:book_tique/screens/catalogoGeneri.dart';
+import 'package:flutter/material.dart';
+import 'package:book_tique/models/book.dart';
 
 class CatalogoPage extends StatelessWidget {
   @override
@@ -40,13 +43,19 @@ class CatalogoPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 28),
-              Text(
-                'Da leggere >',
-                style: TextStyle(
+              GestureDetector(
+                onTap: () {
+                  List<Book> listaDaLeggere = [];
+                  _navigateToCatalogoGeneri(context, listaDaLeggere);
+                },
+                child: Text(
+                  'Da leggere >',
+                  style: TextStyle(
                     fontFamily: 'LoraBoldItalic',
                     fontSize: 17,
                     color: Color(0xFFB46060),
-                    fontWeight: FontWeight.bold
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               SizedBox(height: 12),
@@ -64,13 +73,19 @@ class CatalogoPage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 28),
-              Text(
-                'In corso >',
-                style: TextStyle(
+              GestureDetector(
+                onTap: () {
+                  List<Book> listaInCorso = [];
+                  _navigateToCatalogoGeneri(context, listaInCorso);
+                },
+                child: Text(
+                  'In corso >',
+                  style: TextStyle(
                     fontFamily: 'LoraBoldItalic',
                     fontSize: 17,
                     color: Color(0xFFB46060),
-                    fontWeight: FontWeight.bold
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               SizedBox(height: 12),
@@ -88,13 +103,19 @@ class CatalogoPage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 28),
-              Text(
-                'Letti >',
-                style: TextStyle(
+              GestureDetector(
+                onTap: () {
+                  List<Book> listaLetti = [];
+                  _navigateToCatalogoGeneri(context, listaLetti);
+                },
+                child: Text(
+                  'Letti >',
+                  style: TextStyle(
                     fontFamily: 'LoraBoldItalic',
                     fontSize: 17,
                     color: Color(0xFFB46060),
-                    fontWeight: FontWeight.bold
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               SizedBox(height: 12),
@@ -115,6 +136,12 @@ class CatalogoPage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+  void _navigateToCatalogoGeneri(BuildContext context, List<Book> books) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => CatalogoGeneri( books: books)),
     );
   }
 }

@@ -11,7 +11,7 @@ class CatalogoGeneri extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.grey[800],
         elevation: 4,
         toolbarHeight: 56,
         leading: IconButton(
