@@ -43,10 +43,7 @@ class ImpostazioniScreen extends StatelessWidget {
               SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Login()),
-                  );
+                  Navigator.pushReplacementNamed(context, '/login');
                 },
                 child: Text(
                   'LOGIN',

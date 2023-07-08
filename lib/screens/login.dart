@@ -6,6 +6,7 @@ import 'register.dart';
 class LoginPage extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final Auth _auth = Auth();
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +62,7 @@ class LoginPage extends StatelessWidget {
             SizedBox(height: 52),
             ElevatedButton(
               onPressed: () {
-                // Azione da eseguire quando si preme il pulsante di login
+                _login(context);
               },
               child: Text(
                 'LOGIN',
@@ -94,5 +95,32 @@ class LoginPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _login(BuildContext context) async {
+    String email = _emailController.text;
+    String password = _passwordController.text;
+
+    try {
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      // Login avvenuto con successo, esegui altre azioni necessarie qui
+    } catch (e) {
+      // Gestisci l'errore durante il login
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Errore di accesso'),
+          content: Text('Si è verificato un errore durante l\'accesso.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
   }
 }
