@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:book_tique/screens/bookImage.dart';
 
-class CatalogoHome extends StatelessWidget {
+class CatalogoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,29 +115,3 @@ class CatalogoHome extends StatelessWidget {
   }
 }
 
-class BookImage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 7),
-      child: GestureDetector(
-        onTap: () {
-          // Azioni da eseguire quando si seleziona un libro
-        },
-        child: Container(
-          width: 88,
-          height: 140,
-          decoration: BoxDecoration(
-            color: Colors.green[200],
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Icon(
-            Icons.bookmark,
-            size: 32,
-            color: Colors.white,
-          ),
-        ),
-      ),
-    );
-  }
-}
