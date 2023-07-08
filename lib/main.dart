@@ -1,8 +1,9 @@
+import 'package:book_tique/screens/catalogo.dart';
 import 'package:flutter/material.dart';
-import 'package:my_app/screens/catalogo.dart';
+
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
