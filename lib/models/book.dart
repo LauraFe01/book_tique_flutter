@@ -3,12 +3,14 @@ class Book {
   final String title;
   final List<String> authors;
   final String thumbnailUrl;
+  final String description;
 
   Book({
     required this.id,
     required this.title,
     required this.authors,
     required this.thumbnailUrl,
+    required this.description
   });
 
   factory Book.fromMap(Map<String, dynamic> map) {
@@ -19,6 +21,7 @@ class Book {
       title: volumeInfo['title'] as String? ?? 'Titolo non disponibile',
       authors: (volumeInfo['authors'] as List<dynamic>?)?.cast<String>() ?? [],
       thumbnailUrl: volumeInfo['imageLinks']?['thumbnail'] as String? ?? '',
+      description: volumeInfo['description'] as String? ?? 'Descrizione non disponibile'
     );
   }
 }

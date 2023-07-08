@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:book_tique/screens/catalogoGeneri.dart';
 import 'package:flutter/material.dart';
 import 'package:book_tique/models/book.dart';
+import 'package:book_tique/screens/dettaglioScopri.dart';
 import 'package:http/http.dart' as http;
 
 
@@ -152,6 +153,23 @@ class BookImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.network(book.thumbnailUrl);
+    return InkWell(
+      onTap: () {
+        navigateToBookDetail(context, book);
+      },
+      child: Image.network(
+        book.thumbnailUrl,
+        fit: BoxFit.cover,
+      ),
+    );
+  }
+
+  void navigateToBookDetail(BuildContext context, Book book) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DettaglioLibroScopriPage(book: book),
+      ),
+    );
   }
 }

@@ -8,12 +8,12 @@ class BookImage extends StatelessWidget {
       padding: const EdgeInsets.only(right: 7),
       child: GestureDetector(
         onTap: () {
-          Navigator.push(
+          /*Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => DettaglioLibroScopriPage(), // Passa la schermata di dettaglio come parametro
             ),
-          );
+          );*/
         },
         child: Container(
           width: 88,

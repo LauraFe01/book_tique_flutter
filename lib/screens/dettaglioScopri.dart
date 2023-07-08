@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:book_tique/models/book.dart';
 
 
 class DettaglioLibroScopriPage extends StatelessWidget {
+  final Book book;
+
+  DettaglioLibroScopriPage({required this.book});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,23 +16,28 @@ class DettaglioLibroScopriPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              child: IconButton(
-                icon: Icon(Icons.arrow_back),
-                onPressed: () {
-                  // Azioni da eseguire quando si preme il pulsante "Indietro"
-                },
+              margin: EdgeInsets.only(top: 30), // Imposta il margine superiore desiderato
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.arrow_back),
+                    onPressed: () {
+                      Navigator.pop(context); // Torna indietro quando si preme il pulsante "Indietro"
+                    },
+                  ),
+                ],
               ),
             ),
             SizedBox(height: 20),
-            Image.asset(
-              'assets/images/book_cover.png',
+            Image.network(
+              book.thumbnailUrl,
               width: 250,
               height: 250,
               fit: BoxFit.contain,
             ),
             SizedBox(height: 20),
             Text(
-              'TITOLO',
+              book.title,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: 'LoraBoldItalic',
@@ -37,7 +47,7 @@ class DettaglioLibroScopriPage extends StatelessWidget {
             ),
             SizedBox(height: 8),
             Text(
-              'Autore',
+              book.authors[0],
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: 'LoraBoldItalic',
@@ -66,7 +76,7 @@ class DettaglioLibroScopriPage extends StatelessWidget {
             ),
             SizedBox(height: 8),
             Text(
-              'Descrizione del libro...',
+              book.description,
               style: TextStyle(
                 color: Colors.grey,
               ),
