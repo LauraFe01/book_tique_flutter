@@ -1,6 +1,7 @@
 
 import 'package:book_tique/screens/bookImage.dart';
 import 'package:book_tique/screens/catalogoGeneri.dart';
+import 'package:book_tique/screens/impostazioni.dart';
 import 'package:flutter/material.dart';
 import 'package:book_tique/models/book.dart';
 
@@ -25,7 +26,10 @@ class CatalogoPage extends StatelessWidget {
             ),
             IconButton(
               onPressed: () {
-                // Azioni da eseguire quando si preme il pulsante del profilo
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ImpostazioniScreen()),
+                );
               },
               icon: Icon(
                 Icons.account_circle,

@@ -84,10 +84,7 @@ class Registrazione extends StatelessWidget {
                 SizedBox(height: 32),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Login()),
-                    );
+                    Navigator.pop(context);
                   },
                   child: Text(
                     'HAI GIA UN ACCOUNT? ACCEDI QUI',
