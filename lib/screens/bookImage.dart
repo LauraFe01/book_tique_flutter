@@ -19,13 +19,12 @@ class BookImage extends StatelessWidget {
           width: 88,
           height: 140,
           decoration: BoxDecoration(
-            color: Colors.green[200],
+            color: Color(0xC5FFBF9B),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Icon(
-            Icons.bookmark,
+            Icons.menu_book_sharp,
             size: 32,
-            color: Colors.white,
           ),
         ),
       ),

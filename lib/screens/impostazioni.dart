@@ -1,25 +1,35 @@
 
 import 'package:flutter/material.dart';
+import 'package:book_tique/screens/login.dart';
 
 class ImpostazioniScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('IMPOSTAZIONI'),
-        backgroundColor: Colors.grey[700],
+        title: Text(
+            'IMPOSTAZIONI',
+          style: TextStyle(
+            fontFamily: 'LoraBoldItalic',
+            fontSize: 30,
+            color: Color(0xFFFFBF9B),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Colors.grey[800],
+        toolbarHeight: 80,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
+      body: Container(
+        alignment: Alignment.topCenter,
+        child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 48),
-              Image.asset(
-                'assets/profile_circle_icon.png',
-                width: 99,
-                height: 91,
+              Icon(
+                Icons.account_circle,
+                size: 99,
+                color: Color(0xFFB46060),
               ),
               SizedBox(height: 15),
               Text(
@@ -27,56 +37,32 @@ class ImpostazioniScreen extends StatelessWidget {
                 style: TextStyle(
                   fontFamily: 'LoraBoldItalic',
                   fontSize: 20,
-                  color: Colors.grey,
+                  color: Colors.black,
                 ),
               ),
               SizedBox(height: 24),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      // Azioni da eseguire quando si preme il pulsante "MODIFICA"
-                    },
-                    child: Text(
-                      'MODIFICA',
-                      style: TextStyle(
-                        fontFamily: 'LoraBoldItalic',
-                        fontSize: 20,
-                        color: Colors.grey[800],
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.amber[200],
-                      onPrimary: Colors.grey[800],
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 30,
-                        vertical: 12,
-                      ),
-                    ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Login()),
+                  );
+                },
+                child: Text(
+                  'LOGIN',
+                  style: TextStyle(
+                    fontFamily: 'LoraBoldItalic',
+                    fontSize: 20,
+                    color: Colors.white,
                   ),
-                  SizedBox(width: 10),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Azioni da eseguire quando si preme il pulsante "LOGOUT"
-                    },
-                    child: Text(
-                      'LOGOUT',
-                      style: TextStyle(
-                        fontFamily: 'LoraBoldItalic',
-                        fontSize: 20,
-                        color: Colors.white,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.red,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 30,
-                        vertical: 12,
-                      ),
-                    ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xFFB46060),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 30,
+                    vertical: 12,
                   ),
-                ],
+                ),
               ),
             ],
           ),

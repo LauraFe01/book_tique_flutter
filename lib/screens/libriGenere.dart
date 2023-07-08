@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:book_tique/models/book.dart';
+import 'package:book_tique/screens/dettaglioScopri.dart';
 
 class LibriGenere extends StatelessWidget {
+  final Book book;
+
+  LibriGenere({required this.book});
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+        onTap: () {
+      navigateToDettaglioLibro(context, book);
+    },
+    child: Container(
       height: 150,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Color(0xFFFFF4E0),
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
@@ -26,7 +36,7 @@ class LibriGenere extends StatelessWidget {
               width: 88,
               height: 140,
               child: Image.network(
-                'https://via.placeholder.com/88x140', // URL dell'immagine
+                book.thumbnailUrl,
                 fit: BoxFit.cover,
               ),
             ),
@@ -38,20 +48,20 @@ class LibriGenere extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Titolo',
+                  book.title,
                   style: TextStyle(
                     fontFamily: 'Lora-BoldItalic',
                     fontSize: 16,
-                    color: Colors.grey,
+                    color: Colors.black,
                   ),
                 ),
                 SizedBox(height: 8),
                 Text(
-                  'Autore',
+                  book.authors.toString(),
                   style: TextStyle(
                     fontFamily: 'sans-serif',
                     fontSize: 14,
-                    color: Colors.grey,
+                    color: Colors.black,
                   ),
                 ),
               ],
@@ -59,6 +69,16 @@ class LibriGenere extends StatelessWidget {
           ),
         ],
       ),
+    ),
     );
   }
+
+void navigateToDettaglioLibro(BuildContext context, Book book) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => DettaglioLibroScopriPage(book: book),
+    ),
+  );
+}
 }

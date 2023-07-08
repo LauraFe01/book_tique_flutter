@@ -1,12 +1,16 @@
-import 'package:flutter/material.dart';
+
 import 'package:book_tique/screens/bookImage.dart';
+import 'package:book_tique/screens/catalogoGeneri.dart';
+import 'package:book_tique/screens/impostazioni.dart';
+import 'package:flutter/material.dart';
+import 'package:book_tique/models/book.dart';
 
 class CatalogoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey[900],
+        backgroundColor: Colors.grey[800],
         toolbarHeight: 80,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -16,7 +20,7 @@ class CatalogoPage extends StatelessWidget {
               style: TextStyle(
                 fontFamily: 'LoraBoldItalic',
                 fontSize: 30,
-                color: Colors.orange,
+                color: Color(0xFFFFBF9B),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -27,6 +31,7 @@ class CatalogoPage extends StatelessWidget {
               icon: Icon(
                 Icons.account_circle,
                 size: 32,
+                color: Color(0xFFB46060)
               ),
             ),
           ],
@@ -39,12 +44,19 @@ class CatalogoPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 28),
-              Text(
-                'Da leggere >',
-                style: TextStyle(
-                  fontFamily: 'LoraBoldItalic',
-                  fontSize: 20,
-                  color: Colors.red,
+              GestureDetector(
+                onTap: () {
+                  List<Book> listaDaLeggere = [];
+                  _navigateToCatalogoGeneri(context, listaDaLeggere);
+                },
+                child: Text(
+                  'Da leggere >',
+                  style: TextStyle(
+                    fontFamily: 'LoraBoldItalic',
+                    fontSize: 17,
+                    color: Color(0xFFB46060),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               SizedBox(height: 12),
@@ -62,12 +74,19 @@ class CatalogoPage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 28),
-              Text(
-                'In corso >',
-                style: TextStyle(
-                  fontFamily: 'LoraBoldItalic',
-                  fontSize: 20,
-                  color: Colors.red,
+              GestureDetector(
+                onTap: () {
+                  List<Book> listaInCorso = [];
+                  _navigateToCatalogoGeneri(context, listaInCorso);
+                },
+                child: Text(
+                  'In corso >',
+                  style: TextStyle(
+                    fontFamily: 'LoraBoldItalic',
+                    fontSize: 17,
+                    color: Color(0xFFB46060),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               SizedBox(height: 12),
@@ -85,12 +104,19 @@ class CatalogoPage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 28),
-              Text(
-                'Letti >',
-                style: TextStyle(
-                  fontFamily: 'LoraBoldItalic',
-                  fontSize: 20,
-                  color: Colors.red,
+              GestureDetector(
+                onTap: () {
+                  List<Book> listaLetti = [];
+                  _navigateToCatalogoGeneri(context, listaLetti);
+                },
+                child: Text(
+                  'Letti >',
+                  style: TextStyle(
+                    fontFamily: 'LoraBoldItalic',
+                    fontSize: 17,
+                    color: Color(0xFFB46060),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               SizedBox(height: 12),
@@ -111,6 +137,12 @@ class CatalogoPage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+  void _navigateToCatalogoGeneri(BuildContext context, List<Book> books) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => CatalogoGeneri( books: books)),
     );
   }
 }

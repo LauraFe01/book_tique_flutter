@@ -10,7 +10,7 @@ class DettaglioLibroScopriPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.amber[100],
+      backgroundColor: Color(0xFFFFF4E0),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -42,7 +42,7 @@ class DettaglioLibroScopriPage extends StatelessWidget {
               style: TextStyle(
                 fontFamily: 'LoraBoldItalic',
                 fontSize: 28,
-                color: Colors.grey,
+                color: Colors.black,
               ),
             ),
             SizedBox(height: 8),
@@ -52,18 +52,27 @@ class DettaglioLibroScopriPage extends StatelessWidget {
               style: TextStyle(
                 fontFamily: 'LoraBoldItalic',
                 fontSize: 20,
-                color: Colors.grey,
+                color: Colors.black,
               ),
             ),
             SizedBox(height: 15),
-            ElevatedButton(
-              onPressed: () {
-                // Azioni da eseguire quando si preme il pulsante "AGGIUNGI"
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Colors.red,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  // Azioni da eseguire quando si preme il pulsante "AGGIUNGI"
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xFFB46060),
+                ),
+                child: Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    Icon(Icons.add),
+                    Text('AGGIUNGI'),
+                  ],
+                ),
               ),
-              child: Text('AGGIUNGI'),
             ),
             SizedBox(height: 15),
             Text(
@@ -71,14 +80,14 @@ class DettaglioLibroScopriPage extends StatelessWidget {
               style: TextStyle(
                 fontFamily: 'LoraBoldItalic',
                 fontSize: 20,
-                color: Colors.grey,
+                color: Colors.black,
               ),
             ),
             SizedBox(height: 8),
             Text(
               book.description,
               style: TextStyle(
-                color: Colors.grey,
+                color: Colors.black,
               ),
             ),
           ],
