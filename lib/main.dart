@@ -1,9 +1,14 @@
 import 'package:book_tique/screens/catalogo.dart';
 import 'package:book_tique/screens/homeScreen.dart';
+import 'package:book_tique/screens/login.dart';
+import 'package:book_tique/screens/register.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -12,6 +17,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: CatalogoHome(),
+      routes: {
+        '/login': (context) => LoginPage(),
+        '/register': (context) => RegistrationPage()
+      },
     );
   }
 }

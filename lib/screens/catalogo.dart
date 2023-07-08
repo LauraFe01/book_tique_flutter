@@ -22,7 +22,7 @@ class CatalogoPage extends StatelessWidget {
             ),
             IconButton(
               onPressed: () {
-                // Azioni da eseguire quando si preme il pulsante del profilo
+                Navigator.pushNamed(context, '/login');
               },
               icon: Icon(
                 Icons.account_circle,

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>228127203938-0gnoa1hg9kke3fi7vtlbhicgre0sn0ej.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.228127203938-0gnoa1hg9kke3fi7vtlbhicgre0sn0ej</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAjtC6JHCXQ0UcL7GWWyIJMNyF9XTAvwWM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>228127203938</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.bookTique</string>
+	<key>PROJECT_ID</key>
+	<string>booktiqueflut</string>
+	<key>STORAGE_BUCKET</key>
+	<string>booktiqueflut.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:228127203938:ios:83f0de78bded2e8071273b</string>
+</dict>
+</plist>

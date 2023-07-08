@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "228127203938",
+    "project_id": "booktiqueflut",
+    "storage_bucket": "booktiqueflut.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:228127203938:android:c8e713fc9957dd4271273b",
+        "android_client_info": {
+          "package_name": "com.example.book_tique"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "228127203938-lv1q6t3lnls7n5h6fdag78g7mqe6pkfg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfK1xZPjb0vbyn_sl8aMcdldaH9zudIRQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "228127203938-lv1q6t3lnls7n5h6fdag78g7mqe6pkfg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
