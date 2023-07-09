@@ -80,17 +80,19 @@ class _DettaglioLibroScopriPageState extends State<DettaglioLibroScopriPage> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.0),
               child: ElevatedButton(
-                onPressed: aggiunto ? null : () {
+                onPressed: aggiunto ? (){
+                  spostaLibro(widget.book);
+                } : () {
                   aggiungiLibro(widget.book);
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: aggiunto ? Colors.grey : Color(0xFFB46060),
+                  primary: aggiunto ? Color(0xFFB46060) : Color(0xFFB46060),
                 ),
                 child: Wrap(
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
                     Icon(Icons.add),
-                    Text(aggiunto ? 'AGGIUNTO' : 'AGGIUNGI'),
+                    Text(aggiunto ? 'SPOSTA' : 'AGGIUNGI'),
                   ],
                 ),
               ),
@@ -181,4 +183,38 @@ class _DettaglioLibroScopriPageState extends State<DettaglioLibroScopriPage> {
       // Handle the case when the user is not logged in
     }
   }
+
+  Future<void> spostaLibro(Book book) async{
+    Libro libro = Libro(
+      titolo: book.title,
+      autori: book.authors.isNotEmpty ? book.authors : [],
+      descrizione: book.description,
+      id: book.id,
+      copertina: book.thumbnailUrl,
+      stato: "Da leggere",
+    );
+
+    final currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      final userId = currentUser.uid;
+      final database = FirebaseDatabase(
+        databaseURL: 'https://booktiqueflut-default-rtdb.europe-west1.firebasedatabase.app/',
+      );
+
+      DatabaseReference usersRef = database.ref().child("Utenti");
+      DatabaseReference userRef = usersRef.child(userId);
+      print("User ID: $userId");
+      log("User ID: $userId");
+      DatabaseReference catalogoRef = userRef.child('Catalogo');
+      log("catalogo: $catalogoRef");
+
+      await catalogoRef.child(book.id).set(libro.toJson());
+      setState(() {
+        aggiunto = true;
+      });
+    } else {
+      // Handle the case when the user is not logged in
+    }
+  }
+
 }
