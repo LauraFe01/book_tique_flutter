@@ -71,17 +71,26 @@ class CatalogoPage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 12),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    BookImage(),
-                    BookImage(),
-                    BookImage(),
-                    BookImage(),
-                    BookImage(),
-                    BookImage(),
-                  ],
+              Container(
+                color: Color(0xC5FFBF9B),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: SizedBox(
+                    height: 140,
+                    child: GridView.builder(
+                      scrollDirection: Axis.horizontal,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 1,
+                        mainAxisSpacing: 8,
+                        childAspectRatio: 1.5,
+                      ),
+                      itemCount: listaDaLeggere.length,
+                      itemBuilder: (context, index) {
+                        final book = listaDaLeggere[index];
+                        return BookImage(book: book);
+                      },
+                    ),
+                  ),
                 ),
               ),
               SizedBox(height: 28),
@@ -100,17 +109,26 @@ class CatalogoPage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 12),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    BookImage(),
-                    BookImage(),
-                    BookImage(),
-                    BookImage(),
-                    BookImage(),
-                    BookImage(),
-                  ],
+              Container(
+                color: Color(0xC5FFBF9B),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: SizedBox(
+                    height: 140,
+                    child: GridView.builder(
+                      scrollDirection: Axis.horizontal,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 1,
+                        mainAxisSpacing: 8,
+                        childAspectRatio: 1.5,
+                      ),
+                      itemCount: listaInCorso.length,
+                      itemBuilder: (context, index) {
+                        final book = listaInCorso[index];
+                        return BookImage(book: book);
+                      },
+                    ),
+                  ),
                 ),
               ),
               SizedBox(height: 28),
@@ -129,17 +147,26 @@ class CatalogoPage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 12),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    BookImage(),
-                    BookImage(),
-                    BookImage(),
-                    BookImage(),
-                    BookImage(),
-                    BookImage(),
-                  ],
+              Container(
+                color: Color(0xC5FFBF9B),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: SizedBox(
+                    height: 140,
+                    child: GridView.builder(
+                      scrollDirection: Axis.horizontal,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 1,
+                        mainAxisSpacing: 8,
+                        childAspectRatio: 1.5,
+                      ),
+                      itemCount: listaLetti.length,
+                      itemBuilder: (context, index) {
+                        final book = listaLetti[index];
+                        return BookImage(book: book);
+                      },
+                    ),
+                  ),
                 ),
               ),
             ],
