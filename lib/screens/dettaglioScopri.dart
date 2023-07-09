@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:book_tique/models/book.dart';
@@ -6,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 import '../models/Utente.dart';
+import 'package:logger/logger.dart';
 
 
 class DettaglioLibroScopriPage extends StatelessWidget {
@@ -102,34 +105,41 @@ class DettaglioLibroScopriPage extends StatelessWidget {
     );
   }
 
-  void aggiungiLibro(Libro libro) {
+
+  void aggiungiLibro(Book book) async {
+    Libro libro = Libro(
+      titolo: book.title,
+      autori: book.authors.isNotEmpty ? book.authors : [],
+      descrizione: book.description,
+      id: book.id,
+      copertina: book.thumbnailUrl,
+      stato: "Da leggere",
+    );
+
     final currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser != null) {
       final userId = currentUser.uid;
-      final database = FirebaseDatabase(databaseURL: 'https://booktiqueflut-default-rtdb.europe-west1.firebasedatabase.app/');
-      FirebaseDatabase.instance.setPersistenceEnabled(true);
-      FirebaseDatabase.instance.ref().keepSynced(true);
+      final database = FirebaseDatabase(
+        databaseURL: 'https://booktiqueflut-default-rtdb.europe-west1.firebasedatabase.app/',
+      );
+
       DatabaseReference usersRef = database.ref().child("Utenti");
       DatabaseReference userRef = usersRef.child(userId);
+      print("User ID: $userId");
+      log("User ID: $userId");
       DatabaseReference catalogoRef = userRef.child('Catalogo');
+      log("catalogo: $catalogoRef");
 
-      catalogoRef.once().then((DataSnapshot snapshot) {
 
-        if (snapshot.value != null) {
-          final Map<dynamic, dynamic> libriMap = snapshot.value as Map<dynamic, dynamic>;
-          final List<Libro> libri = libriMap.values.map((value) => Libro.fromJson(value)).toList();
-        }
-          libro.stato = "Da leggere";
-          catalogoRef.push().set(libro.toJson());
+      await catalogoRef.child(book.id).set(libro.toJson()); // Salva il libro nel catalogo usando l'ID come chiave
 
-      } as FutureOr Function(DatabaseEvent value)).catchError((error) {
-        // Gestisci l'errore
-      });
+      // ...
     } else {
       // L'utente non è loggato
       // Esegui qui le azioni necessarie (es. visualizza un messaggio di errore)
     }
   }
+
 
   void checkPresenza(Libro libro){
     final currentUser = FirebaseAuth.instance.currentUser;
