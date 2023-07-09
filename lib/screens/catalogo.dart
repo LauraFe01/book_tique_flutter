@@ -47,7 +47,13 @@ class _CatalogoPageState extends State<CatalogoPage> {
             ),
             IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/login');
+                final currentUser = FirebaseAuth.instance.currentUser;
+                if (currentUser != null) {
+                  Navigator.pushNamed(context, '/impostazioni');
+                } else {
+                  // Utente non loggato, vai alla schermata di login
+                  Navigator.pushNamed(context, '/login');
+                }
               },
               icon: Icon(
                 Icons.account_circle,
