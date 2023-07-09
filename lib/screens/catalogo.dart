@@ -9,12 +9,21 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:book_tique/models/book.dart';
 
-class CatalogoPage extends StatelessWidget {
+class CatalogoPage extends StatefulWidget {
+  const CatalogoPage({Key? key}) : super(key: key);
+
+  @override
+  _CatalogoPageState createState() => _CatalogoPageState();
+}
+
+class _CatalogoPageState extends State<CatalogoPage> {
   List<Book> listaDaLeggere = [];
   List<Book> listaInCorso = [];
   List<Book> listaLetti = [];
 
-  CatalogoPage() {
+  @override
+  void initState() {
+    super.initState();
     fillBooks();
   }
 
@@ -41,9 +50,9 @@ class CatalogoPage extends StatelessWidget {
                 Navigator.pushNamed(context, '/login');
               },
               icon: Icon(
-                  Icons.account_circle,
-                  size: 32,
-                  color: Color(0xFFB46060)
+                Icons.account_circle,
+                size: 32,
+                color: Color(0xFFB46060),
               ),
             ),
           ],
@@ -87,6 +96,7 @@ class CatalogoPage extends StatelessWidget {
                       itemCount: listaDaLeggere.length,
                       itemBuilder: (context, index) {
                         final book = listaDaLeggere[index];
+                        log("listaDaLeggere: $listaDaLeggere");
                         return BookImage(book: book);
                       },
                     ),
@@ -198,9 +208,9 @@ class CatalogoPage extends StatelessWidget {
       catalogoRef.onValue.listen((DatabaseEvent event) {
         final data = event.snapshot.value as Map<dynamic, dynamic>;
         log("data: $data");
-        listaDaLeggere.clear();
-        listaInCorso.clear();
-        listaLetti.clear();
+        List<Book> updatedListaDaLeggere = [];
+        List<Book> updatedListaInCorso = [];
+        List<Book> updatedListaLetti = [];
         if (data != null) {
           data.forEach((key, value) {
             // Access the identifier (book ID) of each object
@@ -215,7 +225,7 @@ class CatalogoPage extends StatelessWidget {
                 thumbnailUrl: value['copertina'],
                 description: value['descrizione'],
               );
-              listaDaLeggere.add(book);
+              updatedListaDaLeggere.add(book);
             }
             if (value['stato'] == "In corso") {
               Book book = Book(
@@ -225,7 +235,7 @@ class CatalogoPage extends StatelessWidget {
                 thumbnailUrl: value['copertina'],
                 description: value['descrizione'],
               );
-              listaInCorso.add(book);
+              updatedListaInCorso.add(book);
             }
             if (value['stato'] == "Letti") {
               Book book = Book(
@@ -235,10 +245,16 @@ class CatalogoPage extends StatelessWidget {
                 thumbnailUrl: value['copertina'],
                 description: value['descrizione'],
               );
-              listaLetti.add(book);
+              updatedListaLetti.add(book);
             }
           });
         }
+
+        setState(() {
+          listaDaLeggere = updatedListaDaLeggere;
+          listaInCorso = updatedListaInCorso;
+          listaLetti = updatedListaLetti;
+        });
       });
     } else {
       // L'utente non è loggato
@@ -246,4 +262,3 @@ class CatalogoPage extends StatelessWidget {
     }
   }
 }
-
