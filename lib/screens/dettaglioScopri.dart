@@ -202,14 +202,6 @@ class _DettaglioLibroScopriPageState extends State<DettaglioLibroScopriPage> {
   }
 
   Future<void> spostaLibro(Book book) async{
-    Libro libro = Libro(
-      titolo: book.title,
-      autori: book.authors.isNotEmpty ? book.authors : [],
-      descrizione: book.description,
-      id: book.id,
-      copertina: book.thumbnailUrl,
-      stato: "Da leggere",
-    );
 
     final currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser != null) {
@@ -225,9 +217,25 @@ class _DettaglioLibroScopriPageState extends State<DettaglioLibroScopriPage> {
       DatabaseReference catalogoRef = userRef.child('Catalogo');
       log("catalogo: $catalogoRef");
 
-      await catalogoRef.child(book.id).set(libro.toJson());
-      setState(() {
-        aggiunto = true;
+      catalogoRef.onValue.listen((DatabaseEvent event) async {
+        final data = event.snapshot.value as Map<dynamic, dynamic>;
+        log("data: $data");
+        if (data != null) {
+          bool moved = false; // Flag per indicare se l'aggiornamento è stato già eseguito
+          await Future.forEach(data.entries, (entry) async {
+            final key = entry.key;
+            final value = entry.value;
+            log("Book ID: $key");
+            log("Object Data: $value");
+            if (!moved && value["stato"] == "Da leggere") {
+              await catalogoRef.child(key).update({"stato": "In corso"});
+              moved = true; // Imposta il flag a true dopo l'aggiornamento
+            } else if (!moved && value["stato"] == "In corso") {
+              await catalogoRef.child(key).update({"stato": "Letti"});
+              moved = true; // Imposta il flag a true dopo l'aggiornamento
+            }
+          });
+        }
       });
     } else {
       // Handle the case when the user is not logged in
