@@ -10,12 +10,21 @@ import 'package:firebase_database/firebase_database.dart';
 import '../models/Utente.dart';
 import 'package:logger/logger.dart';
 
-
-class DettaglioLibroScopriPage extends StatelessWidget {
+class DettaglioLibroScopriPage extends StatefulWidget {
   final Book book;
+
+  DettaglioLibroScopriPage({required this.book});
+
+  @override
+  _DettaglioLibroScopriPageState createState() => _DettaglioLibroScopriPageState();
+}
+
+class _DettaglioLibroScopriPageState extends State<DettaglioLibroScopriPage> {
   bool aggiunto = false;
 
-  DettaglioLibroScopriPage({required this.book}) {
+  @override
+  void initState() {
+    super.initState();
     checkPresenza();
   }
 
@@ -28,13 +37,13 @@ class DettaglioLibroScopriPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              margin: EdgeInsets.only(top: 30), // Imposta il margine superiore desiderato
+              margin: EdgeInsets.only(top: 30),
               child: Row(
                 children: [
                   IconButton(
                     icon: Icon(Icons.arrow_back),
                     onPressed: () {
-                      Navigator.pop(context); // Torna indietro quando si preme il pulsante "Indietro"
+                      Navigator.pop(context);
                     },
                   ),
                 ],
@@ -42,14 +51,14 @@ class DettaglioLibroScopriPage extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Image.network(
-              book.thumbnailUrl,
+              widget.book.thumbnailUrl,
               width: 250,
               height: 250,
               fit: BoxFit.contain,
             ),
             SizedBox(height: 20),
             Text(
-              book.title,
+              widget.book.title,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: 'LoraBoldItalic',
@@ -59,7 +68,7 @@ class DettaglioLibroScopriPage extends StatelessWidget {
             ),
             SizedBox(height: 8),
             Text(
-              book.authors[0],
+              widget.book.authors[0],
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: 'LoraBoldItalic',
@@ -71,17 +80,17 @@ class DettaglioLibroScopriPage extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.0),
               child: ElevatedButton(
-                onPressed: () {
-                  aggiungiLibro(book);
+                onPressed: aggiunto ? null : () {
+                  aggiungiLibro(widget.book);
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Color(0xFFB46060),
+                  primary: aggiunto ? Colors.grey : Color(0xFFB46060),
                 ),
                 child: Wrap(
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
                     Icon(Icons.add),
-                    Text('AGGIUNGI'),
+                    Text(aggiunto ? 'AGGIUNTO' : 'AGGIUNGI'),
                   ],
                 ),
               ),
@@ -97,7 +106,7 @@ class DettaglioLibroScopriPage extends StatelessWidget {
             ),
             SizedBox(height: 8),
             Text(
-              book.description,
+              widget.book.description,
               style: TextStyle(
                 color: Colors.black,
               ),
@@ -108,8 +117,7 @@ class DettaglioLibroScopriPage extends StatelessWidget {
     );
   }
 
-
-  void aggiungiLibro(Book book) async {
+  Future<void> aggiungiLibro(Book book) async {
     Libro libro = Libro(
       titolo: book.title,
       autori: book.authors.isNotEmpty ? book.authors : [],
@@ -133,16 +141,16 @@ class DettaglioLibroScopriPage extends StatelessWidget {
       DatabaseReference catalogoRef = userRef.child('Catalogo');
       log("catalogo: $catalogoRef");
 
-      await catalogoRef.child(book.id).set(libro.toJson()); // Salva il libro nel catalogo usando l'ID come chiave
-
+      await catalogoRef.child(book.id).set(libro.toJson());
+      setState(() {
+        aggiunto = true;
+      });
     } else {
-      // L'utente non è loggato
-      // Esegui qui le azioni necessarie (es. visualizza un messaggio di errore)
+      // Handle the case when the user is not logged in
     }
   }
 
-
-  void checkPresenza(){
+  Future<void> checkPresenza() async {
     final currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser != null) {
       final userId = currentUser.uid;
@@ -158,23 +166,19 @@ class DettaglioLibroScopriPage extends StatelessWidget {
         log("data: $data");
         if (data != null) {
           data.forEach((key, value) {
-            // Access the identifier (book ID) of each object
             log("Book ID: $key");
-            // Access the object data using 'value' variable
             log("Object Data: $value");
-
-            if (book.id == key){
-              aggiunto = true;
-              log("aggiunto: $aggiunto");
+            if (widget.book.id == key) {
+              setState(() {
+                aggiunto = true;
+              });
+              return;
             }
-
           });
         }
       });
-
     } else {
-      // L'utente non è loggato
-      // Esegui qui le azioni necessarie (es. visualizza un messaggio di errore)
+      // Handle the case when the user is not logged in
     }
   }
 }
