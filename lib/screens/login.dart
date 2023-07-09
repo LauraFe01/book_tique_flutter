@@ -103,14 +103,14 @@ class LoginPage extends StatelessWidget {
 
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-      // Login avvenuto con successo, esegui altre azioni necessarie qui
+      Navigator.pushReplacementNamed(context, '/home');
     } catch (e) {
       // Gestisci l'errore durante il login
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: Text('Errore di accesso'),
-          content: Text('Si è verificato un errore durante l\'accesso.'),
+          content: Text('Si è verificato un errore durante l\'accesso. $e'),
           actions: [
             TextButton(
               onPressed: () {

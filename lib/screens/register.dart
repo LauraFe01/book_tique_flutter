@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'login.dart';
 
 class RegistrationPage extends StatelessWidget {
   final TextEditingController _usernameController = TextEditingController();
@@ -119,14 +121,14 @@ class RegistrationPage extends StatelessWidget {
 
     try {
       await _auth.createUserWithEmailAndPassword(email: email, password: password);
-      // Registrazione avvenuta con successo, esegui altre azioni necessarie qui
+        Navigator.pushReplacementNamed(context, '/home');
     } catch (e) {
       // Gestisci l'errore durante la registrazione
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: Text('Errore di registrazione'),
-          content: Text('Si è verificato un errore durante la registrazione.'),
+          content: Text('Si è verificato un errore durante la registrazione: $e'),
           actions: [
             TextButton(
               onPressed: () {

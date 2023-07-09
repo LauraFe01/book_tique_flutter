@@ -22,7 +22,8 @@ class MyApp extends StatelessWidget {
       home: CatalogoHome(),
       routes: {
         '/login': (context) => LoginPage(),
-        '/register': (context) => RegistrationPage()
+        '/register': (context) => RegistrationPage(),
+        '/home': (context)=> CatalogoHome()
       },
     );
   }

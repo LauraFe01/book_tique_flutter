@@ -2,13 +2,28 @@
 import 'package:flutter/material.dart';
 import 'package:book_tique/screens/login.dart';
 
-class ImpostazioniScreen extends StatelessWidget {
+import 'package:firebase_auth/firebase_auth.dart';
+
+class ImpostazioniScreen extends StatefulWidget {
+  @override
+  _ImpostazioniScreenState createState() => _ImpostazioniScreenState();
+}
+
+class _ImpostazioniScreenState extends State<ImpostazioniScreen> {
+  User? _currentUser;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentUser = FirebaseAuth.instance.currentUser;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            'IMPOSTAZIONI',
+          'IMPOSTAZIONI',
           style: TextStyle(
             fontFamily: 'LoraBoldItalic',
             fontSize: 30,
@@ -33,7 +48,7 @@ class ImpostazioniScreen extends StatelessWidget {
               ),
               SizedBox(height: 15),
               Text(
-                'Username',
+                _currentUser != null ? _currentUser!.email! : 'Email',
                 style: TextStyle(
                   fontFamily: 'LoraBoldItalic',
                   fontSize: 20,
@@ -42,11 +57,18 @@ class ImpostazioniScreen extends StatelessWidget {
               ),
               SizedBox(height: 24),
               ElevatedButton(
-                onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/login');
+                onPressed: () async {
+                  if (_currentUser != null) {
+                     await FirebaseAuth.instance.signOut();
+                     Navigator.pushReplacementNamed(context, '/home');
+                  } else {
+                    // L'utente non è loggato, esegui le azioni per il login
+                    // Esempio: Naviga alla pagina di login
+                    Navigator.pushReplacementNamed(context, '/login');
+                  }
                 },
                 child: Text(
-                  'LOGIN',
+                  _currentUser != null ? 'LOGOUT' : 'LOGIN',
                   style: TextStyle(
                     fontFamily: 'LoraBoldItalic',
                     fontSize: 20,
