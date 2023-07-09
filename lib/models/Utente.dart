@@ -55,7 +55,7 @@ class Libro {
   final List<String> autori;
   final String copertina;
   final String descrizione;
-  final String stato;
+  String stato;
 
   Libro({
     required this.id,

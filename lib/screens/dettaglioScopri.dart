@@ -66,7 +66,7 @@ class DettaglioLibroScopriPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 8.0),
               child: ElevatedButton(
                 onPressed: () {
-                  // Azioni da eseguire quando si preme il pulsante "AGGIUNGI"
+                  aggiungiLibro(book);
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Color(0xFFB46060),
@@ -114,26 +114,14 @@ class DettaglioLibroScopriPage extends StatelessWidget {
       DatabaseReference catalogoRef = userRef.child('Catalogo');
 
       catalogoRef.once().then((DataSnapshot snapshot) {
-        bool libroGiaPresente = false;
 
         if (snapshot.value != null) {
           final Map<dynamic, dynamic> libriMap = snapshot.value as Map<dynamic, dynamic>;
           final List<Libro> libri = libriMap.values.map((value) => Libro.fromJson(value)).toList();
-
-          for (Libro libroEsistente in libri) {
-            if (libroEsistente.id == libro.id) {
-              libroGiaPresente = true;
-              break;
-            }
-          }
         }
-
-        if (libroGiaPresente) {
-
-        } else {
-          // Aggiungi il libro al catalogo dell'utente
+          libro.stato = "Da leggere";
           catalogoRef.push().set(libro.toJson());
-        }
+
       } as FutureOr Function(DatabaseEvent value)).catchError((error) {
         // Gestisci l'errore
       });
