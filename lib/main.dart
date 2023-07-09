@@ -4,6 +4,7 @@ import 'package:book_tique/screens/login.dart';
 import 'package:book_tique/screens/register.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 
 Future<void> main() async {
