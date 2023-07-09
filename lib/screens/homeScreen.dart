@@ -14,8 +14,8 @@ class _CatalogoHomeState extends State<CatalogoHome> {
 
   static List<Widget> _widgetOptions = <Widget>[
     CatalogoPage(),
-    ImpostazioniScreen(),
     ScopriPage(),
+    ImpostazioniScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -43,12 +43,12 @@ class _CatalogoHomeState extends State<CatalogoHome> {
             label: 'Catalogo',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Impostazioni',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.explore),
             label: 'Scopri',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Impostazioni',
           ),
         ],
       ),

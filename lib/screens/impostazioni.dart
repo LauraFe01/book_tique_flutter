@@ -48,7 +48,7 @@ class _ImpostazioniScreenState extends State<ImpostazioniScreen> {
               ),
               SizedBox(height: 15),
               Text(
-                _currentUser != null ? _currentUser!.email! : 'Email',
+                _currentUser != null ? _currentUser!.email! : 'Effettua il login!',
                 style: TextStyle(
                   fontFamily: 'LoraBoldItalic',
                   fontSize: 20,
