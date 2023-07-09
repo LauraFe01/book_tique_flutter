@@ -146,9 +146,26 @@ class _DettaglioLibroScopriPageState extends State<DettaglioLibroScopriPage> {
         aggiunto = true;
       });
     } else {
-      // Handle the case when the user is not logged in
-    }
+      showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Attenzione'),
+          content: Text('Per aggiungere un libro devi essere loggato.'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Chiudi'),
+              onPressed: () {
+              Navigator.of(context).pop();
+            },
+            ),
+          ],
+        );
+        },
+        );
+        }
   }
+
 
   Future<void> checkPresenza() async {
     final currentUser = FirebaseAuth.instance.currentUser;
