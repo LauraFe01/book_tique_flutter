@@ -13,8 +13,11 @@ import 'package:logger/logger.dart';
 
 class DettaglioLibroScopriPage extends StatelessWidget {
   final Book book;
+  bool aggiunto = false;
 
-  DettaglioLibroScopriPage({required this.book});
+  DettaglioLibroScopriPage({required this.book}) {
+    checkPresenza();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,10 +133,8 @@ class DettaglioLibroScopriPage extends StatelessWidget {
       DatabaseReference catalogoRef = userRef.child('Catalogo');
       log("catalogo: $catalogoRef");
 
-
       await catalogoRef.child(book.id).set(libro.toJson()); // Salva il libro nel catalogo usando l'ID come chiave
 
-      // ...
     } else {
       // L'utente non è loggato
       // Esegui qui le azioni necessarie (es. visualizza un messaggio di errore)
@@ -141,7 +142,7 @@ class DettaglioLibroScopriPage extends StatelessWidget {
   }
 
 
-  void checkPresenza(Libro libro){
+  void checkPresenza(){
     final currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser != null) {
       final userId = currentUser.uid;
@@ -152,22 +153,25 @@ class DettaglioLibroScopriPage extends StatelessWidget {
       DatabaseReference userRef = usersRef.child(userId);
       DatabaseReference catalogoRef = userRef.child('Catalogo');
 
-      catalogoRef.once().then((DataSnapshot snapshot) {
-        bool libroGiaPresente = false;
-        if (snapshot.value != null) {
-          final Map<dynamic, dynamic> libriMap = snapshot.value as Map<dynamic, dynamic>;
-          final List<Libro> libri = libriMap.values.map((value) => Libro.fromJson(value)).toList();
+      catalogoRef.onValue.listen((DatabaseEvent event) {
+        final data = event.snapshot.value as Map<dynamic, dynamic>;
+        log("data: $data");
+        if (data != null) {
+          data.forEach((key, value) {
+            // Access the identifier (book ID) of each object
+            log("Book ID: $key");
+            // Access the object data using 'value' variable
+            log("Object Data: $value");
 
-          for (Libro libroEsistente in libri) {
-            if (libroEsistente.id == libro.id) {
-              libroGiaPresente = true;
-              break;
+            if (book.id == key){
+              aggiunto = true;
+              log("aggiunto: $aggiunto");
             }
-          }
+
+          });
         }
-      } as FutureOr Function(DatabaseEvent value)).catchError((error) {
-        // Gestisci l'errore
       });
+
     } else {
       // L'utente non è loggato
       // Esegui qui le azioni necessarie (es. visualizza un messaggio di errore)
