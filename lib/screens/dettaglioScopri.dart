@@ -80,7 +80,7 @@ class _DettaglioLibroScopriPageState extends State<DettaglioLibroScopriPage> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.0),
               child: ElevatedButton(
-                onPressed: aggiunto ? (){
+                onPressed: aggiunto ? () {
                   spostaLibro(widget.book);
                 } : () {
                   aggiungiLibro(widget.book);
@@ -149,23 +149,23 @@ class _DettaglioLibroScopriPageState extends State<DettaglioLibroScopriPage> {
       });
     } else {
       showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Attenzione'),
-          content: Text('Per aggiungere un libro devi essere loggato.'),
-          actions: <Widget>[
-            TextButton(
-              child: Text('Chiudi'),
-              onPressed: () {
-              Navigator.of(context).pop();
-            },
-            ),
-          ],
-        );
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Attenzione'),
+            content: Text('Per aggiungere un libro devi essere loggato.'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Chiudi'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
         },
-        );
-        }
+      );
+    }
   }
 
 
@@ -173,7 +173,8 @@ class _DettaglioLibroScopriPageState extends State<DettaglioLibroScopriPage> {
     final currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser != null) {
       final userId = currentUser.uid;
-      final database = FirebaseDatabase(databaseURL: 'https://booktiqueflut-default-rtdb.europe-west1.firebasedatabase.app/');
+      final database = FirebaseDatabase(
+          databaseURL: 'https://booktiqueflut-default-rtdb.europe-west1.firebasedatabase.app/');
       FirebaseDatabase.instance.setPersistenceEnabled(true);
       FirebaseDatabase.instance.ref().keepSynced(true);
       DatabaseReference usersRef = database.ref().child("Utenti");
@@ -201,8 +202,7 @@ class _DettaglioLibroScopriPageState extends State<DettaglioLibroScopriPage> {
     }
   }
 
-  Future<void> spostaLibro(Book book) async{
-
+  Future<void> spostaLibro(Book book) async {
     final currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser != null) {
       final userId = currentUser.uid;
@@ -215,31 +215,23 @@ class _DettaglioLibroScopriPageState extends State<DettaglioLibroScopriPage> {
       print("User ID: $userId");
       log("User ID: $userId");
       DatabaseReference catalogoRef = userRef.child('Catalogo');
+      DatabaseReference bookRef = catalogoRef.child(book.id);
       log("catalogo: $catalogoRef");
 
-      catalogoRef.onValue.listen((DatabaseEvent event) async {
-        final data = event.snapshot.value as Map<dynamic, dynamic>;
-        log("data: $data");
-        if (data != null) {
-          bool moved = false; // Flag per indicare se l'aggiornamento è stato già eseguito
-          await Future.forEach(data.entries, (entry) async {
-            final key = entry.key;
-            final value = entry.value;
-            log("Book ID: $key");
-            log("Object Data: $value");
-            if (!moved && value["stato"] == "Da leggere") {
-              await catalogoRef.child(key).update({"stato": "In corso"});
-              moved = true; // Imposta il flag a true dopo l'aggiornamento
-            } else if (!moved && value["stato"] == "In corso") {
-              await catalogoRef.child(key).update({"stato": "Letti"});
-              moved = true; // Imposta il flag a true dopo l'aggiornamento
-            }
-          });
+      DatabaseEvent data = await bookRef.once();
+      if (data != null) {
+        dynamic snapshotValue = data.snapshot.value;
+        if (snapshotValue != null) {
+          String stato = snapshotValue["stato"];
+          if (stato == "Da leggere") {
+            await bookRef.update({"stato": "In corso"});
+          } else if (stato == "In corso") {
+            await bookRef.update({"stato": "Letti"});
+          }
         }
-      });
-    } else {
-      // Handle the case when the user is not logged in
+      } else {
+        // Handle the case when the user is not logged in
+      }
     }
   }
-
 }
