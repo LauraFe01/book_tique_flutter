@@ -21,6 +21,7 @@ class DettaglioLibroScopriPage extends StatefulWidget {
 
 class _DettaglioLibroScopriPageState extends State<DettaglioLibroScopriPage> {
   bool aggiunto = false;
+  bool fine = false;
 
   @override
   void initState() {
@@ -81,7 +82,12 @@ class _DettaglioLibroScopriPageState extends State<DettaglioLibroScopriPage> {
               padding: EdgeInsets.symmetric(horizontal: 8.0),
               child: ElevatedButton(
                 onPressed: aggiunto ? () {
-                  spostaLibro(widget.book);
+                  if (fine) {
+                    eliminaLibro(widget.book);
+                    Navigator.pushNamed(context, '/home');
+                  } else {
+                    spostaLibro(widget.book);
+                  }
                 } : () {
                   aggiungiLibro(widget.book);
                 },
@@ -91,8 +97,10 @@ class _DettaglioLibroScopriPageState extends State<DettaglioLibroScopriPage> {
                 child: Wrap(
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
-                    Icon(Icons.add),
-                    Text(aggiunto ? 'SPOSTA' : 'AGGIUNGI'),
+                    Icon(aggiunto && fine ? Icons.clear : Icons.add),
+                    Text(
+                      aggiunto && fine ? 'ELIMINA' : (aggiunto ? 'SPOSTA' : 'AGGIUNGI'),
+                    ),
                   ],
                 ),
               ),
@@ -192,6 +200,11 @@ class _DettaglioLibroScopriPageState extends State<DettaglioLibroScopriPage> {
               setState(() {
                 aggiunto = true;
               });
+              if(value["stato"] == "Letti"){
+                setState(() {
+                  fine = true;
+                });
+              }
               return;
             }
           });
@@ -234,4 +247,25 @@ class _DettaglioLibroScopriPageState extends State<DettaglioLibroScopriPage> {
       }
     }
   }
+
+  Future<void> eliminaLibro(Book book) async {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      final userId = currentUser.uid;
+      final database = FirebaseDatabase(
+        databaseURL: 'https://booktiqueflut-default-rtdb.europe-west1.firebasedatabase.app/',
+      );
+
+      DatabaseReference usersRef = database.ref().child("Utenti");
+      DatabaseReference userRef = usersRef.child(userId);
+      print("User ID: $userId");
+      log("User ID: $userId");
+      DatabaseReference catalogoRef = userRef.child('Catalogo');
+      DatabaseReference bookRef = catalogoRef.child(book.id);
+      log("catalogo: $catalogoRef");
+
+      await bookRef.remove();
+    }
+  }
+
 }
