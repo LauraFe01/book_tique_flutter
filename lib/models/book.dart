@@ -19,7 +19,7 @@ class Book {
     return Book(
       id: map['id'] as String,
       title: volumeInfo['title'] as String? ?? 'Titolo non disponibile',
-      authors: (volumeInfo['authors'] as List<dynamic>?)?.cast<String>() ?? [],
+      authors: (volumeInfo['authors'] as List<dynamic>?)?.cast<String>().take(1).toList() ?? ["autore non disponibile"],
       thumbnailUrl: volumeInfo['imageLinks']?['thumbnail'] as String? ?? '',
       description: volumeInfo['description'] as String? ?? 'Descrizione non disponibile'
     );

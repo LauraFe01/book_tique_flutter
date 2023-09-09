@@ -219,11 +219,5 @@ bool isValidImageUri(String? imageUrl) {
   if (imageUrl == null || imageUrl.isEmpty) {
     return false;
   }
-
-  // Verifica se l'URI dell'immagine è valido
-  // Puoi implementare le tue regole di validazione personalizzate qui
-  // Ad esempio, puoi controllare se l'URI inizia con "http://" o "https://"
-  // o se ha un'estensione di file comune come ".jpg", ".png", ecc.
-
-  return true; // Modifica questa logica in base ai tuoi requisiti
+  return true;
 }

@@ -3,7 +3,6 @@ import 'dart:developer';
 
 import 'package:book_tique/screens/bookImage.dart';
 import 'package:book_tique/screens/catalogoGeneri.dart';
-import 'package:book_tique/screens/impostazioni.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -63,6 +62,7 @@ class _CatalogoPageState extends State<CatalogoPage> {
             ),
           ],
         ),
+        automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
         child: Padding(
