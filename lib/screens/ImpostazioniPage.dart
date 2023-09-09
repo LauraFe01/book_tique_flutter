@@ -1,15 +1,15 @@
 
 import 'package:flutter/material.dart';
-import 'package:book_tique/screens/login.dart';
+import 'package:BookTique/screens/LoginPage.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
-class ImpostazioniScreen extends StatefulWidget {
+class ImpostazioniPage extends StatefulWidget {
   @override
-  _ImpostazioniScreenState createState() => _ImpostazioniScreenState();
+  _ImpostazioniPageState createState() => _ImpostazioniPageState();
 }
 
-class _ImpostazioniScreenState extends State<ImpostazioniScreen> {
+class _ImpostazioniPageState extends State<ImpostazioniPage> {
   User? _currentUser;
 
   @override

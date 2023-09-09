@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:book_tique/screens/libriGenere.dart';
-import 'package:book_tique/models/book.dart';
+import 'package:BookTique/screens/LibriGenere.dart';
+import 'package:BookTique/models/book.dart';
 
-class CatalogoGeneri extends StatelessWidget {
+class ListaLibri extends StatelessWidget {
   final List<Book> books;
 
-  CatalogoGeneri({required this.books});
+  ListaLibri({required this.books});
 
   @override
   Widget build(BuildContext context) {

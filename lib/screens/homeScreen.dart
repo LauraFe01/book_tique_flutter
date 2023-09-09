@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:book_tique/screens/impostazioni.dart';
-import 'package:book_tique/screens/scopri.dart';
-import 'package:book_tique/screens/catalogo.dart';
+import 'package:BookTique/screens/ImpostazioniPage.dart';
+import 'package:BookTique/screens/ScopriPage.dart';
+import 'package:BookTique/screens/CatalogoPage.dart';
 
 
-class CatalogoHome extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   @override
-  _CatalogoHomeState createState() => _CatalogoHomeState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _CatalogoHomeState extends State<CatalogoHome> {
-  int _selectedIndex = 0;
+class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 1;
 
   static List<Widget> _widgetOptions = <Widget>[
     CatalogoPage(),
     ScopriPage(),
-    ImpostazioniScreen(),
+    ImpostazioniPage(),
   ];
 
   void _onItemTapped(int index) {

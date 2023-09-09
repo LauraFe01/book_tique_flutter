@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:book_tique/models/book.dart';
-import 'package:book_tique/screens/dettaglioScopri.dart';
+import 'package:BookTique/models/book.dart';
+import 'package:BookTique/screens/DettaglioLibroPage.dart';
 
 class LibriGenere extends StatelessWidget {
   final Book book;
@@ -89,7 +89,7 @@ class LibriGenere extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => DettaglioLibroScopriPage(book: book),
+        builder: (context) => DettaglioLibroPage(book: book),
       ),
     );
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:book_tique/screens/dettaglioScopri.dart';
+import 'package:BookTique/screens/DettaglioLibroPage.dart';
 
 import '../models/book.dart';
 
@@ -25,7 +25,7 @@ class BookImage extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => DettaglioLibroScopriPage(book: book),
+        builder: (context) => DettaglioLibroPage(book: book),
       ),
     );
   }

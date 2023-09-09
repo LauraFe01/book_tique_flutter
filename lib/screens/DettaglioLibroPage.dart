@@ -3,23 +3,24 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:book_tique/models/book.dart';
+import 'package:BookTique/models/book.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../models/Utente.dart';
 import 'package:logger/logger.dart';
 
-class DettaglioLibroScopriPage extends StatefulWidget {
+class DettaglioLibroPage extends StatefulWidget {
   final Book book;
 
-  DettaglioLibroScopriPage({required this.book});
+  DettaglioLibroPage({required this.book});
 
   @override
-  _DettaglioLibroScopriPageState createState() => _DettaglioLibroScopriPageState();
+  _DettaglioLibroPageState createState() => _DettaglioLibroPageState();
 }
 
-class _DettaglioLibroScopriPageState extends State<DettaglioLibroScopriPage> {
+class _DettaglioLibroPageState extends State<DettaglioLibroPage> {
   bool aggiunto = false;
   bool fine = false;
 
@@ -84,7 +85,7 @@ class _DettaglioLibroScopriPageState extends State<DettaglioLibroScopriPage> {
                 onPressed: aggiunto ? () {
                   if (fine) {
                     eliminaLibro(widget.book);
-                    Navigator.pushNamed(context, '/home');
+                    Navigator.pop(context);
                   } else {
                     spostaLibro(widget.book);
                   }
@@ -152,6 +153,7 @@ class _DettaglioLibroScopriPageState extends State<DettaglioLibroScopriPage> {
       log("catalogo: $catalogoRef");
 
       await catalogoRef.child(book.id).set(libro.toJson());
+      showToast("Libro aggiunto a Da Leggere");
       setState(() {
         aggiunto = true;
       });
@@ -211,7 +213,7 @@ class _DettaglioLibroScopriPageState extends State<DettaglioLibroScopriPage> {
         }
       });
     } else {
-      // Handle the case when the user is not logged in
+
     }
   }
 
@@ -236,18 +238,23 @@ class _DettaglioLibroScopriPageState extends State<DettaglioLibroScopriPage> {
         dynamic snapshotValue = data.snapshot.value;
         if (snapshotValue != null) {
           String stato = snapshotValue["stato"];
+          String destination = ""; // Initialize with an empty string
           if (stato == "Da leggere") {
             await bookRef.update({"stato": "In corso"});
+            destination = "In corso";
           } else if (stato == "In corso") {
             await bookRef.update({"stato": "Letti"});
+            destination = "Letti";
           }
+
+          // Mostra un toast con la destinazione
+          showToast("Libro spostato a $destination");
         }
       } else {
         // Handle the case when the user is not logged in
       }
     }
   }
-
   Future<void> eliminaLibro(Book book) async {
     final currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser != null) {
@@ -266,6 +273,17 @@ class _DettaglioLibroScopriPageState extends State<DettaglioLibroScopriPage> {
 
       await bookRef.remove();
     }
+  }
+
+  void showToast(String message) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.black.withOpacity(0.7),
+      textColor: Colors.white,
+    );
   }
 
 }

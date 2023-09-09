@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:book_tique/screens/catalogoGeneri.dart';
+import 'package:BookTique/screens/ListaLibri.dart';
 import 'package:flutter/material.dart';
-import 'package:book_tique/models/book.dart';
-import 'package:book_tique/screens/dettaglioScopri.dart';
+import 'package:BookTique/models/book.dart';
+import 'package:BookTique/screens/DettaglioLibroPage.dart';
 import 'package:http/http.dart' as http;
-import 'package:book_tique/screens/bookImage.dart';
+import 'package:BookTique/screens/BookImage.dart';
 
 
 class ScopriPage extends StatefulWidget {
@@ -210,7 +210,7 @@ void navigateToCatalogoGeneri(BuildContext context,  List<Book> searchResults) {
   Navigator.push(
     context,
     MaterialPageRoute(
-      builder: (context) => CatalogoGeneri(books: searchResults),
+      builder: (context) => ListaLibri(books: searchResults),
     ),
   );
 }

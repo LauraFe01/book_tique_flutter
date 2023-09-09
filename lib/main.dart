@@ -1,8 +1,8 @@
-import 'package:book_tique/screens/catalogo.dart';
-import 'package:book_tique/screens/homeScreen.dart';
-import 'package:book_tique/screens/impostazioni.dart';
-import 'package:book_tique/screens/login.dart';
-import 'package:book_tique/screens/register.dart';
+import 'package:BookTique/screens/CatalogoPage.dart';
+import 'package:BookTique/screens/homeScreen.dart';
+import 'package:BookTique/screens/ImpostazioniPage.dart';
+import 'package:BookTique/screens/LoginPage.dart';
+import 'package:BookTique/screens/RegistrationPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -21,12 +21,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: Color(0xFFFFF4E0),
       ),
-      home: CatalogoHome(),
+      home: HomeScreen(),
       routes: {
         '/login': (context) => LoginPage(),
         '/register': (context) => RegistrationPage(),
-        '/home': (context)=> CatalogoHome(),
-        '/impostazioni': (context)=> ImpostazioniScreen(),
+        '/home': (context)=> HomeScreen(),
+        '/impostazioni': (context)=> ImpostazioniPage(),
       },
     );
   }

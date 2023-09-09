@@ -1,12 +1,12 @@
 
 import 'dart:developer';
 
-import 'package:book_tique/screens/bookImage.dart';
-import 'package:book_tique/screens/catalogoGeneri.dart';
+import 'package:BookTique/screens/BookImage.dart';
+import 'package:BookTique/screens/ListaLibri.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:book_tique/models/book.dart';
+import 'package:BookTique/models/book.dart';
 
 class CatalogoPage extends StatefulWidget {
   const CatalogoPage({Key? key}) : super(key: key);
@@ -195,7 +195,7 @@ class _CatalogoPageState extends State<CatalogoPage> {
   void _navigateToCatalogoGeneri(BuildContext context, List<Book> books) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => CatalogoGeneri(books: books)),
+      MaterialPageRoute(builder: (context) => ListaLibri(books: books)),
     );
   }
 
